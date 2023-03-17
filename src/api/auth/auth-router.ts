@@ -1,10 +1,17 @@
 import express from 'express';
 import { validate } from 'express-validation';
-import { loginUserController } from './auth-controller.js';
+import {
+  loginUserController,
+  registerUserController,
+} from './auth-controller.js';
 import authValidation from './auth-validation.js';
 
 const router = express.Router();
 
-router.route('/login').post(validate(authValidation), loginUserController);
+router.use(validate(authValidation, {}, {}));
+
+router.route('/register').post(registerUserController);
+
+router.route('/login').post(loginUserController);
 
 export default router;

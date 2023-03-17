@@ -8,4 +8,4 @@ export interface LoginResponse {
   accessToken: string;
 }
 
-export type AuthRequest = Pick<User, 'email' | 'password'>;
+export type AuthRequest = Pick<User, 'name' | 'surname' | 'email' | 'password'>;
