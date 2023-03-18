@@ -24,7 +24,7 @@ export const registerUserController: RequestHandler<
   };
 
   await UserModel.create(user);
-  res.sendStatus(201);
+  res.status(201).json('Su usuario ha sido registrado');
 };
 
 export const loginUserController: RequestHandler<
