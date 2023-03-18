@@ -75,7 +75,7 @@ describe('Given a register controller', () => {
         jest.fn(),
       );
 
-      expect(response.sendStatus).toHaveBeenCalledWith(201);
+      expect(response.status).toHaveBeenCalledWith(201);
       expect(UserModel.create).toHaveBeenCalledWith(newUser);
     });
   });
