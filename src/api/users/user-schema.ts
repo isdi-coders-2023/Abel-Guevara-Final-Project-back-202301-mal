@@ -5,6 +5,7 @@ export interface User {
   surname: string;
   email: string;
   password: string;
+  imageUrl: string;
 }
 
 const userSchema = new Schema<User>({
@@ -12,6 +13,7 @@ const userSchema = new Schema<User>({
   surname: String,
   email: String,
   password: String,
+  imageUrl: String,
 });
 
 export const UserModel = mongoose.model<User>('User', userSchema, 'users');
