@@ -9,6 +9,7 @@ export interface Business {
   description: string;
   reviews: string[];
   score: number[];
+  creator: string;
 }
 
 const businessSchema = new Schema<Business>({
@@ -20,6 +21,7 @@ const businessSchema = new Schema<Business>({
   description: String,
   reviews: [String],
   score: [Number],
+  creator: String,
 });
 
 export const BusinessModel = mongoose.model<Business>(
