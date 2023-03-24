@@ -69,6 +69,7 @@ describe('Given an app with businesss-router', () => {
         description: 'la mejor',
         reviews: ['muy bien atendido'],
         score: [5],
+        creator: 'test@example.com',
       };
 
       await request(app)
@@ -90,6 +91,7 @@ describe('Given an app with businesss-router', () => {
         description: 'la mejor',
         reviews: ['muy bien atendido'],
         score: [5],
+        creator: 'test@example.com',
       };
       await request(app).post('/api/v1/business').send(business).expect(401);
     });

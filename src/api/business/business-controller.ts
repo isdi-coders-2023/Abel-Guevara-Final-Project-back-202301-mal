@@ -12,6 +12,7 @@ export const createBusinessController: RequestHandler<
   const business: Business = {
     ...req.body,
     profileUrl: res.locals.picture,
+    creator: res.locals.email,
   };
   await BusinessModel.create(business);
   res.status(201).json(business);

@@ -18,6 +18,7 @@ describe('Given a create business controller', () => {
       score: 5,
     },
     profileUrl: { buffer: Buffer.from('mockBuffer') },
+    creator: 'test@example.com',
   } as Partial<Request>;
 
   const response = {
@@ -40,6 +41,8 @@ describe('Given a create business controller', () => {
 
       expect(BusinessModel.create).toHaveBeenCalledWith({
         ...request.body,
+        profileUrl: undefined,
+        creator: 'test@example.com',
       });
       expect(response.status).toHaveBeenCalledWith(201);
     });
