@@ -3,6 +3,7 @@ import { CustomHTTPError } from '../../utils/custom-http-error';
 import { BusinessModel } from './busines-model';
 import {
   createBusinessController,
+  getBusinessByIdController,
   getBusinessController,
 } from './business-controller';
 
@@ -90,6 +91,64 @@ describe('Given a get business controller', () => {
 
       expect(next).toHaveBeenCalledWith(
         new CustomHTTPError(404, 'Lo sentimos, no hay salones que mostrar'),
+      );
+    });
+  });
+});
+
+describe('Given a getByIdcontroller business', () => {
+  const request = {
+    params: { id: 'mockId' },
+  } as Partial<Request>;
+  const response = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  } as Partial<Response>;
+  const next = jest.fn();
+
+  const business = {
+    id: 'mockId',
+    categories: 'barberia',
+    nameBusiness: 'barber',
+    address: 'malaga',
+    phone: '123456789',
+    profileUrl: 'mockPicture.jpg.com',
+    description: 'la mejor',
+    reviews: ['muy bien atendido'],
+    score: [5],
+    creator: 'abelito@gmail.com',
+  };
+  BusinessModel.findById = jest.fn().mockImplementation(() => ({
+    exec: jest.fn().mockResolvedValue(business),
+  }));
+
+  describe('When the user tries to search for a business by id', () => {
+    test('Then it should be found', async () => {
+      await getBusinessByIdController(
+        request as Request,
+        response as Response,
+        next,
+      );
+
+      expect(response.json).toHaveBeenCalledWith(business);
+      expect(response.status).toHaveBeenCalledWith(200);
+      expect(BusinessModel.findById).toHaveBeenCalledWith('mockId', {
+        __v: 0,
+      });
+    });
+  });
+  describe('When the user tries to search  for a business by id and dont exist', () => {
+    test('Then it should recived a 404 error', async () => {
+      BusinessModel.findById = jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue(null),
+      }));
+      await getBusinessByIdController(
+        request as Request,
+        response as Response,
+        next,
+      );
+      expect(next).toHaveBeenCalledWith(
+        new CustomHTTPError(404, 'El salón buscado no existe'),
       );
     });
   });
