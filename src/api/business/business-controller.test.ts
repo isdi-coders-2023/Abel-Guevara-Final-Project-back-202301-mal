@@ -3,6 +3,7 @@ import { CustomHTTPError } from '../../utils/custom-http-error';
 import { BusinessModel } from './busines-model';
 import {
   createBusinessController,
+  deleteBusinessByIdController,
   getBusinessByIdController,
   getBusinessController,
 } from './business-controller';
@@ -150,6 +151,44 @@ describe('Given a getByIdcontroller business', () => {
       expect(next).toHaveBeenCalledWith(
         new CustomHTTPError(404, 'El salón buscado no existe'),
       );
+    });
+  });
+});
+
+describe('Given a deleteByIdBusinessController', () => {
+  const request = {
+    params: { id: 'mockId' },
+  } as Partial<Request>;
+  const response = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  } as Partial<Response>;
+  const next = jest.fn();
+  describe('When the creator wants delete her business', () => {
+    test('Then the business should be deleted', async () => {
+      BusinessModel.deleteOne = jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue({ deletedCount: 1 }),
+      }));
+
+      await deleteBusinessByIdController(
+        request as Request<{ id: 'mockIde' }>,
+        response as Response,
+        next,
+      );
+      expect(response.status).toHaveBeenCalledWith(204);
+    });
+  });
+  describe('when the business for delete dont exist', () => {
+    test('Then should be throw an error 404', async () => {
+      BusinessModel.deleteOne = jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue({ deletedCount: 0 }),
+      }));
+      await deleteBusinessByIdController(
+        request as Request<{ id: 'mockIde' }>,
+        response as Response,
+        next,
+      );
+      expect(next).toBeCalled();
     });
   });
 });

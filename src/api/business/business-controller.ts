@@ -47,3 +47,16 @@ export const getBusinessByIdController: RequestHandler = async (
 
   res.status(200).json(business);
 };
+
+export const deleteBusinessByIdController: RequestHandler<{
+  id: string;
+}> = async (req, res, next) => {
+  const { id } = req.params;
+  const business = await BusinessModel.deleteOne({ _id: id }).exec();
+
+  if (business.deletedCount === 0) {
+    return next(new CustomHTTPError(404, 'El salón no existe'));
+  }
+
+  return res.status(204);
+};

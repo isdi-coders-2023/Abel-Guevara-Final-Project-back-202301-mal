@@ -3,6 +3,7 @@ import { validate } from 'express-validation';
 import { authMiddleware } from '../auth/auth-middleware.js';
 import {
   createBusinessController,
+  deleteBusinessByIdController,
   getBusinessByIdController,
   getBusinessController,
 } from './business-controller.js';
@@ -22,6 +23,9 @@ router
     createBusinessController,
   );
 
-router.route('/:id').get(getBusinessByIdController);
+router
+  .route('/:id')
+  .get(getBusinessByIdController)
+  .delete(deleteBusinessByIdController);
 
 export default router;
