@@ -33,3 +33,17 @@ export const getBusinessController: RequestHandler = async (
     new CustomHTTPError(404, 'Lo sentimos, no hay salones que mostrar'),
   );
 };
+
+export const getBusinessByIdController: RequestHandler = async (
+  req,
+  res,
+  next,
+) => {
+  const { id } = req.params;
+  const business = await BusinessModel.findById(id, queryProjection).exec();
+  if (business === null) {
+    return next(new CustomHTTPError(404, 'El salón buscado no existe'));
+  }
+
+  res.status(200).json(business);
+};

@@ -3,6 +3,7 @@ import { validate } from 'express-validation';
 import { authMiddleware } from '../auth/auth-middleware.js';
 import {
   createBusinessController,
+  getBusinessByIdController,
   getBusinessController,
 } from './business-controller.js';
 import businessValidation from './business-validation.js';
@@ -20,5 +21,7 @@ router
     supabaseMiddleware,
     createBusinessController,
   );
+
+router.route('/:id').get(getBusinessByIdController);
 
 export default router;
