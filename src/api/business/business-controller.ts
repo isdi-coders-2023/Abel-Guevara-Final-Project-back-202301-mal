@@ -1,4 +1,8 @@
 import { RequestHandler } from 'express';
+import {
+  BUSINESS_BUCKET_NAME,
+  supabase,
+} from '../../database/supabase-client.js';
 import { CustomHTTPError } from '../../utils/custom-http-error.js';
 import { Business, BusinessModel } from './busines-model.js';
 
@@ -52,11 +56,20 @@ export const deleteBusinessByIdController: RequestHandler<{
   id: string;
 }> = async (req, res, next) => {
   const { id } = req.params;
-  const business = await BusinessModel.deleteOne({ _id: id }).exec();
 
-  if (business.deletedCount === 0) {
+  const business = await BusinessModel.findByIdAndDelete({ _id: id }).exec();
+
+  if (business !== undefined && business !== null) {
+    const file = business.profileUrl.substring(
+      business.profileUrl.lastIndexOf('/') + 1,
+    );
+
+    await supabase.storage.from(BUSINESS_BUCKET_NAME).remove([file]);
+  }
+
+  if (business === null) {
     return next(new CustomHTTPError(404, 'El salón no existe'));
   }
 
-  return res.status(204);
+  return res.sendStatus(204);
 };
