@@ -8,6 +8,36 @@ import {
   getBusinessController,
 } from './business-controller';
 
+jest.mock('@supabase/supabase-js', () => {
+  const data = {
+    publicUrl: 'https://example.com/photo.png',
+  };
+  return {
+    createClient: jest.fn().mockImplementation(() => ({
+      storage: {
+        from: jest.fn().mockReturnValue({
+          upload: jest.fn().mockResolvedValue({
+            error: null,
+            data: {
+              ...data,
+            },
+          }),
+          getPublicUrl: jest.fn().mockReturnValue({
+            error: null,
+            data: {
+              ...data,
+            },
+          }),
+          remove: jest.fn().mockResolvedValue({
+            error: null,
+            data: {},
+          }),
+        }),
+      },
+    })),
+  };
+});
+
 describe('Given a create business controller', () => {
   const request = {
     body: {
@@ -161,13 +191,27 @@ describe('Given a deleteByIdBusinessController', () => {
   } as Partial<Request>;
   const response = {
     status: jest.fn().mockReturnThis(),
+    sendStatus: jest.fn(),
     json: jest.fn(),
   } as Partial<Response>;
   const next = jest.fn();
+
+  const business = {
+    id: 'mockId',
+    categories: 'barberia',
+    nameBusiness: 'barber',
+    address: 'malaga',
+    phone: '123456789',
+    profileUrl: 'mockPicture.jpg.com',
+    description: 'la mejor',
+    reviews: ['muy bien atendido'],
+    score: [5],
+    creator: 'abelito@gmail.com',
+  };
   describe('When the creator wants delete her business', () => {
     test('Then the business should be deleted', async () => {
-      BusinessModel.deleteOne = jest.fn().mockImplementation(() => ({
-        exec: jest.fn().mockResolvedValue({ deletedCount: 1 }),
+      BusinessModel.findByIdAndDelete = jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue(business),
       }));
 
       await deleteBusinessByIdController(
@@ -175,20 +219,22 @@ describe('Given a deleteByIdBusinessController', () => {
         response as Response,
         next,
       );
-      expect(response.status).toHaveBeenCalledWith(204);
+      expect(response.sendStatus).toHaveBeenCalledWith(204);
     });
   });
   describe('when the business for delete dont exist', () => {
     test('Then should be throw an error 404', async () => {
-      BusinessModel.deleteOne = jest.fn().mockImplementation(() => ({
-        exec: jest.fn().mockResolvedValue({ deletedCount: 0 }),
+      BusinessModel.findByIdAndDelete = jest.fn().mockImplementation(() => ({
+        exec: jest.fn().mockResolvedValue(null),
       }));
       await deleteBusinessByIdController(
         request as Request<{ id: 'mockIde' }>,
         response as Response,
         next,
       );
-      expect(next).toBeCalled();
+      expect(next).toHaveBeenCalledWith(
+        new CustomHTTPError(404, 'El salón no existe'),
+      );
     });
   });
 });
