@@ -71,5 +71,5 @@ export const deleteBusinessByIdController: RequestHandler<{
     return next(new CustomHTTPError(404, 'El salón no existe'));
   }
 
-  return res.sendStatus(204);
+  return res.status(200).json('Su salón ha sido borrado');
 };

@@ -219,7 +219,7 @@ describe('Given a deleteByIdBusinessController', () => {
         response as Response,
         next,
       );
-      expect(response.sendStatus).toHaveBeenCalledWith(204);
+      expect(response.status).toHaveBeenCalledWith(200);
     });
   });
   describe('when the business for delete dont exist', () => {
