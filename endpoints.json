@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "09561d30-4351-418a-8a96-08d722fe7d32",
+    "name": "Inked&Styled",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25347581"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiZWxpdG9AZ21haWwuY29tIiwiaWF0IjoxNjgwMTgwNTUwfQ.MkDkP5lwikpEkiAdQ8_JszPdmwCJF8EvGuMoV1IYcBA",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "profile",
+              "type": "file",
+              "src": []
+            },
+            {
+              "key": "categories",
+              "value": "Barbería",
+              "type": "text"
+            },
+            {
+              "key": "nameBusiness",
+              "value": "Barber Square",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "C. Juan de Padilla, 5, 29008 Málaga",
+              "type": "text"
+            },
+            {
+              "key": "phone",
+              "value": "666666666",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "De las mejores barberías",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/api/v1/business",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["api", "v1", "business"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/api/v1/business/642586b432775ffe6ecb42d5",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["api", "v1", "business", "642586b432775ffe6ecb42d5"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UserRegister",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Your name\",\n    \"surname\": \"Your last name\",\n    \"email\": \"Your email\",\n    \"password\": \"Your password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/auth/register",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["auth", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UserLogin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"Your email\",\n    \"password\": \"Your password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/auth/login",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["auth", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetAll",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/api/v1/business",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["api", "v1", "business"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://abel-guevara-final-project-back-202301.onrender.com/api/v1/business/642586b432775ffe6ecb42d5",
+          "protocol": "https",
+          "host": ["abel-guevara-final-project-back-202301", "onrender", "com"],
+          "path": ["api", "v1", "business", "642586b432775ffe6ecb42d5"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
