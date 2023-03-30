@@ -3,6 +3,7 @@
 Inked & Styled Projects Application Back End
 
 This is a Node.js using Express library back-end for the web application Inked & Styled Projects.
+
 The purpose of the application is to show beauty salons with their reviews, if users have a salon, they can register, edit or delete it, receiving reviews from other users who consume from their salons.
 
 In this back-end, the four basic operations a software application can perform, CRUD, are defined.
@@ -25,3 +26,4 @@ In this back-end, the four basic operations a software application can perform, 
 -GetById and Delete https://abel-guevara-final-project-back-202301.onrender.com/api/v1/business/642586b432775ffe6ecb42d5
 -Register https://abel-guevara-final-project-back-202301.onrender.com/auth/register
 -Login https://abel-guevara-final-project-back-202301.onrender.com/auth/login
+🔸Info Sonar: -[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Abel-Guevara-Final-Project-back-202301-mal&metric=coverage)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Abel-Guevara-Final-Project-back-202301-mal)
